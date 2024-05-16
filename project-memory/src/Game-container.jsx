@@ -6,17 +6,18 @@ export default function GameContainer({ pokes }) {
   function shuffler() {
     // randomly reorders
     // temp: hard coded
-    return [0, 1, 2];
+    return [1, 0, 2];
   }
 
   //will be a state that is updated in certain conditions
   const currentOrder = shuffler(pokes);
 
+  //loops over length of pokes array, making cards in currentOrder
   return (
     <div className="container">
-      <Card poke={pokes[currentOrder[0]]} />
-      <Card poke={pokes[currentOrder[1]]} />
-      <Card poke={pokes[currentOrder[2]]} />
+      {pokes.map((poke, index) => {
+        return <Card key={index} poke={pokes[currentOrder[index]]} />;
+      })}
     </div>
   );
 }
