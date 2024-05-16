@@ -4,9 +4,15 @@ import PropTypes from "prop-types";
 export default function GameContainer({ pokes }) {
   //generating random orders for cards
   function shuffler() {
-    // randomly reorders
-    // temp: hard coded
-    return [1, 0, 2];
+    const length = pokes.length;
+    let output = [];
+
+    while (output.length < length) {
+      const current = Math.floor(Math.random() * length);
+
+      if (!output.includes(current)) output.push(current);
+    }
+    return output;
   }
 
   //will be a state that is updated in certain conditions

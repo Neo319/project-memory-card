@@ -21,6 +21,11 @@ function App() {
       sprite:
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
     },
+    {
+      name: "Buneary",
+      sprite:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
+    },
   ];
 
   async function fetchPoke(dexNumber) {
@@ -62,8 +67,6 @@ function App() {
 
     return output;
   }
-
-  console.log(generatePokeNumbers(8));
 
   // will be implemented later
   // let pokes2 = fetchPoke(4);
