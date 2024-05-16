@@ -46,7 +46,24 @@ function App() {
     };
   }
 
-  let pokes2 = fetchPoke(4);
+  // generates an array at a desired length, of numbers corresponding to Pokemon (out of a total of 1025)
+  function generatePokeNumbers(length) {
+    let output = [];
+
+    while (output.length < length) {
+      const index = Math.floor(Math.random() * 1024 + 1);
+      if (!output.includes(index)) {
+        output.push(index);
+      }
+    }
+
+    return output;
+  }
+
+  console.log(generatePokeNumbers(8));
+
+  // will be implemented later
+  // let pokes2 = fetchPoke(4);
 
   return (
     <>
