@@ -20,6 +20,34 @@ function App() {
     },
   ];
 
+  async function fetchPoke(dexNumber) {
+    const response = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${dexNumber}`,
+      {
+        mode: "cors",
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Failed to fetch Pokemon");
+    }
+
+    const pokemonData = await response.json();
+
+    const neededData = {
+      name: pokemonData.name,
+      sprite: pokemonData.sprites.front_default,
+      types: pokemonData.types,
+    };
+
+    console.log(neededData);
+
+    return {
+      neededData,
+    };
+  }
+
+  let pokes2 = fetchPoke(4);
+
   return (
     <>
       <h1 className="title">Pokémon Memory Card Challenge</h1>
