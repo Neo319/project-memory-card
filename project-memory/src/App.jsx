@@ -8,15 +8,18 @@ function App() {
   const pokes = [
     {
       name: "Ninetales",
-      sprite: null,
+      sprite:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
     },
     {
       name: "Drowzee",
-      sprite: null,
+      sprite:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
     },
     {
       name: "Rhydon",
-      sprite: null,
+      sprite:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
     },
   ];
 

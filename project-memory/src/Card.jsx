@@ -2,10 +2,13 @@ import PropTypes from "prop-types";
 
 export default function Card({ poke }) {
   return (
-    <div className="card">
+    <button className="card">
       <span>temp card</span>
+      <div className="pokeSprite">
+        <img src={poke.sprite} alt="" />
+      </div>
       <h1 className="pokeName">{poke.name}</h1>
-    </div>
+    </button>
   );
 }
 
