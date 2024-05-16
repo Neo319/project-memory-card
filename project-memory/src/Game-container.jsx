@@ -2,6 +2,10 @@ import Card from "./Card";
 import PropTypes from "prop-types";
 
 export default function GameContainer({ pokes }) {
+  if (!pokes || pokes.length === 0) {
+    return null;
+  }
+
   //generating random orders for cards
   function shuffler() {
     const length = pokes.length;

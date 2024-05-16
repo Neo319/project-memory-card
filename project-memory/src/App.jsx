@@ -3,9 +3,8 @@ import "./App.css";
 import GameContainer from "./Game-container";
 
 function App() {
-  //all data for pokemon is in 'pokes'. Will be replaced
-  //with results of API calls
-  const pokes = [
+  // mock API call
+  const pokes2 = [
     {
       name: "Ninetales",
       sprite:
@@ -14,7 +13,7 @@ function App() {
     {
       name: "Drowzee",
       sprite:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/462.png",
     },
     {
       name: "Rhydon",
@@ -47,11 +46,7 @@ function App() {
       types: pokemonData.types,
     };
 
-    console.log(neededData);
-
-    return {
-      neededData,
-    };
+    return neededData;
   }
 
   // generates an array at a desired length, of numbers corresponding to Pokemon (out of a total of 1025)
@@ -68,8 +63,30 @@ function App() {
     return output;
   }
 
-  // will be implemented later
-  // let pokes2 = fetchPoke(4);
+  //master function that returns all pokemon data / "pokes"
+  async function getAllPokemon(length) {
+    const numbers = generatePokeNumbers(length);
+    let output = [];
+
+    const promises = numbers.map(async (number) => {
+      return fetchPoke(number);
+    });
+
+    output = await Promise.all(promises);
+
+    return output;
+  }
+
+  let pokes = [];
+
+  //making the api call itself
+  getAllPokemon(1)
+    .then((pokes) => {
+      console.log(pokes);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 
   return (
     <>
