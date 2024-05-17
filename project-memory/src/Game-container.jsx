@@ -28,14 +28,24 @@ export default function GameContainer({ pokes }) {
     setCurrentOrder(shuffler());
   }
 
-  //loops over length of pokes array, making cards in currentOrder
+  function handleCardClick(poke) {
+    console.log(poke.name);
+  }
 
+  //loops over length of pokes array, making cards in currentOrder
   return (
     <>
       <button onClick={handleShuffleClick}>Shuffle!</button>
       <div className="container">
         {pokes.map((poke, index) => {
-          return <Card key={index} poke={pokes[currentOrder[index]]} />;
+          let orderedPoke = pokes[currentOrder[index]];
+          return (
+            <Card
+              key={orderedPoke.name + "_" + index}
+              poke={orderedPoke}
+              onClick={() => handleCardClick(orderedPoke)}
+            />
+          );
         })}
       </div>
     </>
