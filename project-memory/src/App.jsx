@@ -2,18 +2,20 @@ import ScoreKeeper from "./Score";
 import "./App.css";
 import GameContainer from "./Game-container";
 
+import { useState, useEffect } from "react";
+
 function App() {
   // mock API call
-  const pokes2 = [
+  const [pokes, setPokes] = useState([
     {
       name: "Ninetales",
       sprite:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png",
     },
     {
       name: "Drowzee",
       sprite:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/462.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/96.png",
     },
     {
       name: "Rhydon",
@@ -23,9 +25,9 @@ function App() {
     {
       name: "Buneary",
       sprite:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/427.png",
     },
-  ];
+  ]);
 
   async function fetchPoke(dexNumber) {
     const response = await fetch(
@@ -77,16 +79,19 @@ function App() {
     return output;
   }
 
-  let pokes = [];
+  //making the real api call :
 
-  //making the api call itself
-  getAllPokemon(1)
-    .then((pokes) => {
-      console.log(pokes);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+  // const [pokes, setPokes] = useState([]);
+  // useEffect(() => {
+  //   getAllPokemon(1)
+  //     .then((pokes) => {
+  //       console.log(pokes);
+  //       setPokes(pokes); // Update the pokes state with the fetched data
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []); // Empty dependency array ensures useEffect runs only once
 
   return (
     <>

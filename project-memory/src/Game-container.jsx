@@ -20,7 +20,7 @@ export default function GameContainer({ pokes }) {
   }
 
   //will be a state that is updated in certain conditions
-  const currentOrder = shuffler(pokes);
+  const currentOrder = shuffler();
 
   //loops over length of pokes array, making cards in currentOrder
   return (
