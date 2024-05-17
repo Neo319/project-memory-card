@@ -1,7 +1,11 @@
 import Card from "./Card";
 import PropTypes from "prop-types";
 
+import { useState } from "react";
+
 export default function GameContainer({ pokes }) {
+  const [currentOrder, setCurrentOrder] = useState([0, 1]);
+
   if (!pokes || pokes.length === 0) {
     return null;
   }
@@ -16,19 +20,25 @@ export default function GameContainer({ pokes }) {
 
       if (!output.includes(current)) output.push(current);
     }
+
     return output;
   }
 
-  //will be a state that is updated in certain conditions
-  const currentOrder = shuffler();
+  function handleShuffleClick() {
+    setCurrentOrder(shuffler());
+  }
 
   //loops over length of pokes array, making cards in currentOrder
+
   return (
-    <div className="container">
-      {pokes.map((poke, index) => {
-        return <Card key={index} poke={pokes[currentOrder[index]]} />;
-      })}
-    </div>
+    <>
+      <button onClick={handleShuffleClick}>Shuffle!</button>
+      <div className="container">
+        {pokes.map((poke, index) => {
+          return <Card key={index} poke={pokes[currentOrder[index]]} />;
+        })}
+      </div>
+    </>
   );
 }
 
