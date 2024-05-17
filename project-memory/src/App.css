@@ -40,3 +40,17 @@
 .pokeSprite img {
   width: 80%;
 }
+
+/* grid changes for two-column width */
+@media (max-width: 59em) {
+  .container {
+    grid-template-columns: 20em 20em;
+  }
+}
+
+/* grid changes for one-column width */
+@media (max-width: 40em) {
+  .container {
+    grid-template-columns: 20em;
+  }
+}
