@@ -5,10 +5,11 @@ import GameContainer from "./Game-container";
 import { useState, useEffect } from "react";
 
 function App() {
-  // mock API call
   const [pokes, setPokes] = useState([]);
-
   const [isActive, setIsActive] = useState(false);
+
+  const [score, setScore] = useState(0);
+  const [level, setLevel] = useState(1);
 
   async function fetchPoke(dexNumber) {
     const response = await fetch(
@@ -76,9 +77,10 @@ function App() {
 
   function handleStartClick() {
     if (!isActive) {
-      setIsActive(true);
-      setPokes(_mockGetPokes(2));
+      const newPokes = _mockGetPokes(level + 1);
+      setPokes(newPokes);
       setScore(0);
+      setIsActive(true);
     }
   }
 
@@ -106,10 +108,13 @@ function App() {
       },
     ];
 
-    return mock.splice(0, length);
+    const output = mock.slice(0, length);
+
+    console.log(output);
+    return output;
   }
 
-  const [score, setScore] = useState(0);
+  // game driver functionality
 
   function handleScoreIncrease() {
     setScore(score + 1);
@@ -119,10 +124,15 @@ function App() {
     setIsActive(false);
   }
 
+  function handleNextLevel() {
+    setLevel(level + 1);
+    setIsActive(false);
+  }
+
   return (
     <>
       <h1 className="title">Pokémon Memory Card Challenge</h1>
-      <ScoreKeeper score={score} />
+      <ScoreKeeper score={score} level={level} />
       <button className="start" onClick={handleStartClick}>
         Start
       </button>
@@ -131,6 +141,7 @@ function App() {
         handleScoreIncrease={handleScoreIncrease}
         handleWrongGuess={handleWrongGuess}
         isActive={isActive}
+        handleNextLevel={handleNextLevel}
       />
     </>
   );
