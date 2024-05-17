@@ -3,8 +3,14 @@ import PropTypes from "prop-types";
 
 import { useState } from "react";
 
-export default function GameContainer({ pokes }) {
+export default function GameContainer({
+  pokes,
+  handleScoreIncrease,
+  handleWrongGuess,
+  isActive,
+}) {
   const [currentOrder, setCurrentOrder] = useState([0, 1]);
+  const [guesses, setGuesses] = useState([]);
 
   if (!pokes || pokes.length === 0) {
     return null;
@@ -29,7 +35,13 @@ export default function GameContainer({ pokes }) {
   }
 
   function handleCardClick(poke) {
-    console.log(poke.name);
+    if (!guesses.includes(poke.name)) {
+      handleScoreIncrease();
+      setGuesses([...guesses, poke.name]);
+    } else {
+      console.log("wrong guess");
+      handleWrongGuess();
+    }
   }
 
   //loops over length of pokes array, making cards in currentOrder
@@ -44,6 +56,7 @@ export default function GameContainer({ pokes }) {
               key={orderedPoke.name + "_" + index}
               poke={orderedPoke}
               onClick={() => handleCardClick(orderedPoke)}
+              disabled={!isActive}
             />
           );
         })}
@@ -54,4 +67,7 @@ export default function GameContainer({ pokes }) {
 
 GameContainer.propTypes = {
   pokes: PropTypes.array.isRequired,
+  handleScoreIncrease: PropTypes.func.isRequired,
+  handleWrongGuess: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
 };

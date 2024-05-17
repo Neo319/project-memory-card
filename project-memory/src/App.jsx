@@ -8,7 +8,6 @@ function App() {
   // mock API call
   const [pokes, setPokes] = useState([]);
 
-  const [length, setLength] = useState(3);
   const [isActive, setIsActive] = useState(false);
 
   async function fetchPoke(dexNumber) {
@@ -79,6 +78,7 @@ function App() {
     if (!isActive) {
       setIsActive(true);
       setPokes(_mockGetPokes(2));
+      setScore(0);
     }
   }
 
@@ -109,14 +109,29 @@ function App() {
     return mock.splice(0, length);
   }
 
+  const [score, setScore] = useState(0);
+
+  function handleScoreIncrease() {
+    setScore(score + 1);
+  }
+
+  function handleWrongGuess() {
+    setIsActive(false);
+  }
+
   return (
     <>
       <h1 className="title">Pokémon Memory Card Challenge</h1>
-      <ScoreKeeper />
+      <ScoreKeeper score={score} />
       <button className="start" onClick={handleStartClick}>
         Start
       </button>
-      <GameContainer pokes={pokes} />
+      <GameContainer
+        pokes={pokes}
+        handleScoreIncrease={handleScoreIncrease}
+        handleWrongGuess={handleWrongGuess}
+        isActive={isActive}
+      />
     </>
   );
 }

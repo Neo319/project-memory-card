@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 
-export default function Card({ poke, onClick }) {
+export default function Card({ poke, onClick, disabled }) {
   return (
-    <button className="card" onClick={onClick}>
+    <button className="card" onClick={onClick} disabled={disabled}>
       <span>temp card</span>
       <div className="pokeSprite">
         <img src={poke.sprite} alt="" />
@@ -15,4 +15,5 @@ export default function Card({ poke, onClick }) {
 Card.propTypes = {
   poke: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool.isRequired,
 };
