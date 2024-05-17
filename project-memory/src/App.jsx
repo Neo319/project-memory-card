@@ -6,28 +6,10 @@ import { useState, useEffect } from "react";
 
 function App() {
   // mock API call
-  const [pokes, setPokes] = useState([
-    {
-      name: "Ninetales",
-      sprite:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png",
-    },
-    {
-      name: "Drowzee",
-      sprite:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/96.png",
-    },
-    {
-      name: "Rhydon",
-      sprite:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
-    },
-    {
-      name: "Buneary",
-      sprite:
-        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/427.png",
-    },
-  ]);
+  const [pokes, setPokes] = useState([]);
+
+  const [length, setLength] = useState(3);
+  const [isActive, setIsActive] = useState(false);
 
   async function fetchPoke(dexNumber) {
     const response = await fetch(
@@ -93,10 +75,47 @@ function App() {
   //     });
   // }, []); // Empty dependency array ensures useEffect runs only once
 
+  function handleStartClick() {
+    if (!isActive) {
+      setIsActive(true);
+      setPokes(_mockGetPokes(2));
+    }
+  }
+
+  function _mockGetPokes(length) {
+    const mock = [
+      {
+        name: "Ninetales",
+        sprite:
+          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/38.png",
+      },
+      {
+        name: "Drowzee",
+        sprite:
+          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/96.png",
+      },
+      {
+        name: "Rhydon",
+        sprite:
+          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/112.png",
+      },
+      {
+        name: "Buneary",
+        sprite:
+          "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/427.png",
+      },
+    ];
+
+    return mock.splice(0, length);
+  }
+
   return (
     <>
       <h1 className="title">Pokémon Memory Card Challenge</h1>
       <ScoreKeeper />
+      <button className="start" onClick={handleStartClick}>
+        Start
+      </button>
       <GameContainer pokes={pokes} />
     </>
   );
