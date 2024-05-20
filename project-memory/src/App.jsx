@@ -125,6 +125,7 @@ function App() {
   }
 
   function handleNextLevel() {
+    console.log("next level is called");
     setLevel(level + 1);
     setIsActive(false);
   }

@@ -13,11 +13,24 @@ export default function GameContainer({
   const [currentOrder, setCurrentOrder] = useState([0, 1]);
   const [guesses, setGuesses] = useState([]);
 
+  useEffect(() => {
+    console.log("pokes was changed -- setting current order");
+
+    //ensure currentOrder is the same length as pokes
+    setCurrentOrder(shuffler());
+  }, [pokes]);
+
+  // Ensure currentOrder is always up-to-date with the length of pokes
+  useEffect(() => {
+    if (pokes.length !== currentOrder.length) {
+      console.log("updating currentOrder");
+      setCurrentOrder(shuffler());
+    }
+  }, [pokes.length, currentOrder.length]);
+
   if (!pokes || pokes.length === 0) {
     return null;
   }
-
-  console.log(pokes);
 
   //generating random orders for cards
   function shuffler() {
@@ -30,8 +43,7 @@ export default function GameContainer({
       if (!output.includes(current)) output.push(current);
     }
 
-    console.log("Pokes at order", pokes);
-    console.log("Order:", output);
+    console.log(output);
 
     return output;
   }
@@ -46,7 +58,7 @@ export default function GameContainer({
     if (!guesses.includes(poke.name)) {
       handleScoreIncrease();
       setGuesses([...guesses, poke.name]);
-      setCurrentOrder(shuffler);
+      setCurrentOrder(shuffler());
 
       // when all cards are guessed, start a new game
       if (guesses.length === pokes.length - 1) {
@@ -68,7 +80,7 @@ export default function GameContainer({
       <button onClick={handleShuffleClick}>Shuffle!</button>
       <div className="container">
         {pokes.map((poke, index) => {
-          console.log(currentOrder);
+          if (index >= currentOrder.length) return null;
           let orderedPoke = pokes[currentOrder[index]];
           return (
             <Card
