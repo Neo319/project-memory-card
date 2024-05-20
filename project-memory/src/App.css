@@ -35,15 +35,6 @@
   }
 }
 
-@keyframes blurFade {
-  from {
-    filter: blur(0%);
-  }
-  to {
-    filter: blur(100%);
-  }
-}
-
 .title {
   width: 100vw;
   text-align: center;
@@ -69,6 +60,7 @@
 }
 #messageContainer {
   position: relative;
+  overflow: hidden;
 }
 .message {
   opacity: 50%;
@@ -85,6 +77,12 @@
   opacity: 100%;
   animation: ease 1.5s messageSlide;
   z-index: 2;
+}
+.linger {
+  opacity: 100%;
+  top: 50%;
+  z-index: 2;
+  font-size: 1em;
 }
 
 .card {

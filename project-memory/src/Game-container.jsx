@@ -12,7 +12,8 @@ export default function GameContainer({
 }) {
   const [currentOrder, setCurrentOrder] = useState([0, 1]);
   const [guesses, setGuesses] = useState([]);
-  const [message, setMessage] = useState("here!");
+  const [message, setMessage] = useState("");
+  const [messageLinger, setMessageLinger] = useState(false);
 
   useEffect(() => {
     console.log("pokes was changed -- setting current order");
@@ -28,6 +29,17 @@ export default function GameContainer({
       setCurrentOrder(shuffler());
     }
   }, [pokes.length, currentOrder.length]);
+
+  useEffect(() => {
+    if (messageLinger && isActive) {
+      const container = document.getElementById("container");
+      const message = document.getElementById("message");
+      container.classList.remove("blurred");
+      message.classList.remove("linger");
+
+      setMessageLinger(false);
+    }
+  });
 
   if (!pokes || pokes.length === 0) {
     return null;
@@ -63,14 +75,25 @@ export default function GameContainer({
       setGuesses([...guesses, poke.name]);
       setCurrentOrder(shuffler());
 
-      // when all cards are guessed, start a new game
+      // when all cards are guessed
       if (guesses.length === pokes.length - 1) {
         console.log("completed level");
+
+        setMessage(
+          <>
+            <h2>Level complete!</h2>
+            <span>Press the Start button to begin the next level.</span>
+          </>
+        );
+        lingeringMessage();
+
         handleNextLevel();
         setGuesses([]);
       }
     } else {
-      console.log("wrong guess");
+      setMessage("Sorry, wrong guess!");
+      showMessage();
+
       setGuesses([]); //cleanup
 
       handleWrongGuess();
@@ -88,8 +111,17 @@ export default function GameContainer({
     setTimeout(() => {
       message.classList.remove("show");
       container.classList.remove("blurred");
-      setMessage("here!");
+      setMessage("");
     }, 1700);
+  }
+
+  function lingeringMessage() {
+    setMessageLinger(true);
+    const container = document.getElementById("container");
+    const message = document.getElementById("message");
+    container.classList.add("blurred");
+
+    message.classList.add("linger");
   }
 
   //loops over length of pokes array, making cards in currentOrder
@@ -99,6 +131,10 @@ export default function GameContainer({
       <div id="messageContainer">
         <div className="message" id="message">
           {message}
+        </div>
+
+        <div className="lingeringMessage">
+          {isActive ? <></> : <div className="message">{message}</div>}
         </div>
 
         <div className="container" id="container">

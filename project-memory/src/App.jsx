@@ -78,6 +78,7 @@ function App() {
   // }, []); // Empty dependency array ensures useEffect runs only once
 
   function handleStartClick() {
+    console.log(isActive);
     if (!isActive) {
       const newPokes = _mockGetPokes(level + 1);
       setPokes(newPokes);
@@ -124,6 +125,9 @@ function App() {
 
   function handleWrongGuess() {
     setIsActive(false);
+    setTimeout(() => {
+      handleStartClick();
+    }, 2000);
   }
 
   function handleNextLevel() {
