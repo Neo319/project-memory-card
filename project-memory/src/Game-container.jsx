@@ -18,8 +18,6 @@ export default function GameContainer({
   const [messageLinger, setMessageLinger] = useState(false);
 
   useEffect(() => {
-    console.log("pokes was changed -- setting current order");
-
     //ensure currentOrder is the same length as pokes
     setCurrentOrder(shuffler());
   }, [pokes]);
@@ -27,7 +25,6 @@ export default function GameContainer({
   // Ensure currentOrder is always up-to-date with the length of pokes
   useEffect(() => {
     if (pokes.length !== currentOrder.length) {
-      console.log("updating currentOrder");
       setCurrentOrder(shuffler());
     }
   }, [pokes.length, currentOrder.length]);
@@ -59,8 +56,6 @@ export default function GameContainer({
       if (!output.includes(current)) output.push(current);
     }
 
-    console.log(output);
-
     return output;
   }
 
@@ -71,8 +66,6 @@ export default function GameContainer({
   }
 
   function handleCardClick(poke) {
-    console.log("guesses-", guesses.length);
-    console.log("pokes-", pokes.length);
     if (!guesses.includes(poke.name)) {
       handleScoreIncrease();
       setGuesses([...guesses, poke.name]);
@@ -80,8 +73,6 @@ export default function GameContainer({
 
       // when all cards are guessed
       if (guesses.length === pokes.length - 1) {
-        console.log("completed level");
-
         if (level < highestLevel) {
           setMessage(
             <>
@@ -127,7 +118,6 @@ export default function GameContainer({
 
   //how the GUI gives instructions etc
   function showMessage() {
-    console.log("message called");
     const container = document.getElementById("container");
     const message = document.getElementById("message");
     container.classList.add("blurred");

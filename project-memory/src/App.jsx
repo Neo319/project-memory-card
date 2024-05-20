@@ -67,7 +67,7 @@ function App() {
   //making the real api call :
 
   // useEffect(() => {
-  //   getAllPokemon(1)
+  //   getAllPokemon()
   //     .then((pokes) => {
   //       console.log(pokes);
   //       setPokes(pokes); // Update the pokes state with the fetched data
@@ -135,7 +135,6 @@ function App() {
   }
 
   function handleNextLevel() {
-    console.log("next level is called");
     setLevel(level + 1);
     setIsActive(false);
 
