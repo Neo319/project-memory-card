@@ -12,7 +12,7 @@ function App() {
   const [level, setLevel] = useState(1);
 
   const numberOfPokemon = 1025;
-  const highestLevel = 5;
+  const highestLevel = 10;
 
   async function fetchPoke(dexNumber) {
     const response = await fetch(
