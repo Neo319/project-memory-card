@@ -40,6 +40,11 @@
   text-align: center;
 }
 
+.desc {
+  margin-left: 10em;
+  margin-right: 10em;
+}
+
 .score {
   background-color: rgb(240, 240, 255);
   text-align: center;
@@ -128,5 +133,9 @@
 @media (max-width: 40em) {
   .container {
     grid-template-columns: 20em;
+  }
+
+  .desc {
+    margin: 0;
   }
 }

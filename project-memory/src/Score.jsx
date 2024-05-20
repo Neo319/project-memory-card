@@ -9,7 +9,7 @@ export default function ScoreKeeper({ score, level }) {
     <div className="score">
       <span>
         Score: {score} <br />
-        high Score: {highScore} <br />
+        Highest possible Score: {highScore} <br />
         Level: {level}
       </span>
     </div>

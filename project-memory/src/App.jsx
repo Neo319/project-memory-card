@@ -145,6 +145,18 @@ function App() {
   return (
     <>
       <h1 className="title">Pokémon Memory Card Challenge</h1>
+
+      <p className="desc">
+        This Project has been made alongside{" "}
+        <a href="https://theodinproject.com">The Odin Project </a>
+        to practice the use of React, specifically useEffect hooks and state
+        management. <br />
+        In this memory game, try to choose each of the Pokémon without choosing
+        the same one twice, with the order being shuffled each time you guess!
+        The game will begin with only two Pokémon, but go up to 10! <br />
+        Good Luck!
+      </p>
+
       <ScoreKeeper score={score} level={level} />
       <button className="start" onClick={handleStartClick}>
         Start
