@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
 
-export default function ScoreKeeper({ score }) {
+export default function ScoreKeeper({ score, level }) {
   //temp: will be states
 
   const highScore = 10;
-  const level = 1;
 
   return (
     <div className="score">
@@ -19,4 +18,5 @@ export default function ScoreKeeper({ score }) {
 
 ScoreKeeper.propTypes = {
   score: PropTypes.number.isRequired,
+  level: PropTypes.number.isRequired,
 };
