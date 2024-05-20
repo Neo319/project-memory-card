@@ -61,21 +61,20 @@ function App() {
 
     output = await Promise.all(promises);
 
+    console.log(output);
+
     return output;
   }
 
-  //making the real api call :
-
-  // useEffect(() => {
-  //   getAllPokemon()
-  //     .then((pokes) => {
-  //       console.log(pokes);
-  //       setPokes(pokes); // Update the pokes state with the fetched data
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, []); // Empty dependency array ensures useEffect runs only once
+  useEffect(() => {
+    if (isActive) {
+      const startGame = async () => {
+        const newPokes = await getAllPokemon(level + 1);
+        setPokes(newPokes);
+      };
+      startGame();
+    }
+  }, [isActive, level]);
 
   function _mockGetPokes(length) {
     const mock = [
@@ -114,8 +113,6 @@ function App() {
     }
     setIsActive((prevIsActive) => {
       if (!prevIsActive) {
-        const newPokes = _mockGetPokes(level + 1);
-        setPokes(newPokes);
         setScore(0);
         return true;
       }
