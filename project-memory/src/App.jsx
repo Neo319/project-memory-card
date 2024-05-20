@@ -11,6 +11,8 @@ function App() {
   const [score, setScore] = useState(0);
   const [level, setLevel] = useState(1);
 
+  const numberOfPokemon = 1025;
+
   async function fetchPoke(dexNumber) {
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${dexNumber}`,
@@ -38,7 +40,7 @@ function App() {
     let output = [];
 
     while (output.length < length) {
-      const index = Math.floor(Math.random() * 1024 + 1);
+      const index = Math.floor(Math.random() * numberOfPokemon + 1);
       if (!output.includes(index)) {
         output.push(index);
       }

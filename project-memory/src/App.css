@@ -39,6 +39,13 @@
   border: 1px solid red;
 }
 
+/* styles for displaying messages */
+.blurred {
+  filter: blur(10px);
+  pointer-events: none;
+  overflow: none;
+}
+
 .card {
   border: 1px solid black;
   border-radius: 1em;

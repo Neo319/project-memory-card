@@ -12,6 +12,7 @@ export default function GameContainer({
 }) {
   const [currentOrder, setCurrentOrder] = useState([0, 1]);
   const [guesses, setGuesses] = useState([]);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     console.log("pokes was changed -- setting current order");
@@ -50,6 +51,8 @@ export default function GameContainer({
 
   function handleShuffleClick() {
     setCurrentOrder(shuffler());
+    setMessage("Shuffling...");
+    showMessage();
   }
 
   function handleCardClick(poke) {
@@ -74,11 +77,26 @@ export default function GameContainer({
     }
   }
 
+  //how the GUI gives instructions etc
+  function showMessage() {
+    console.log("message called");
+    const container = document.getElementById("container");
+    const messageContainer = document.getElementById("messageContainer");
+    container.classList.add("blurred");
+
+    messageContainer.classList.add("show");
+    setTimeout(() => {
+      messageContainer.classList.remove("show");
+      container.classList.remove("blurred");
+      setMessage("");
+    }, 3000);
+  }
+
   //loops over length of pokes array, making cards in currentOrder
   return (
     <>
       <button onClick={handleShuffleClick}>Shuffle!</button>
-      <div className="container">
+      <div className="container" id="container">
         {pokes.map((poke, index) => {
           if (index >= currentOrder.length) return null;
           let orderedPoke = pokes[currentOrder[index]];
@@ -92,6 +110,7 @@ export default function GameContainer({
           );
         })}
       </div>
+      <div id="messageContainer">{message ? <div>{message}</div> : <></>}</div>
     </>
   );
 }
