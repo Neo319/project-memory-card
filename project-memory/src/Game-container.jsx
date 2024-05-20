@@ -9,6 +9,8 @@ export default function GameContainer({
   handleWrongGuess,
   isActive,
   handleNextLevel,
+  level,
+  highestLevel,
 }) {
   const [currentOrder, setCurrentOrder] = useState([0, 1]);
   const [guesses, setGuesses] = useState([]);
@@ -80,16 +82,28 @@ export default function GameContainer({
       if (guesses.length === pokes.length - 1) {
         console.log("completed level");
 
-        setMessage(
-          <>
-            <h2>Level complete!</h2>
-            <span>Press the Start button to begin the next level.</span>
-          </>
-        );
-        lingeringMessage();
-
-        handleNextLevel();
-        setGuesses([]);
+        if (level < highestLevel) {
+          setMessage(
+            <>
+              <h2>Level complete!</h2>
+              <span>Press the Start button to begin the next level.</span>
+            </>
+          );
+          lingeringMessage();
+          handleNextLevel();
+          setGuesses([]);
+        } else if (level >= highestLevel) {
+          //game is complete
+          setMessage(
+            <>
+              <h2>Congrats, you win!</h2>
+              <span>Reload the page to try again!</span>
+            </>
+          );
+          lingeringMessage();
+          handleNextLevel();
+          setGuesses([]);
+        }
       } else {
         //correct guess with >0 left
         const remaining = pokes.length - 1 - guesses.length;
@@ -123,7 +137,7 @@ export default function GameContainer({
       message.classList.remove("show");
       container.classList.remove("blurred");
       setMessage("");
-    }, 1700);
+    }, 1500);
   }
 
   function lingeringMessage() {
@@ -173,4 +187,6 @@ GameContainer.propTypes = {
   handleWrongGuess: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   handleNextLevel: PropTypes.func.isRequired,
+  level: PropTypes.number.isRequired,
+  highestLevel: PropTypes.number.isRequired,
 };

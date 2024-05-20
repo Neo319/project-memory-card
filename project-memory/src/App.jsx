@@ -12,6 +12,7 @@ function App() {
   const [level, setLevel] = useState(1);
 
   const numberOfPokemon = 1025;
+  const highestLevel = 5;
 
   async function fetchPoke(dexNumber) {
     const response = await fetch(
@@ -65,7 +66,6 @@ function App() {
 
   //making the real api call :
 
-  // const [pokes, setPokes] = useState([]);
   // useEffect(() => {
   //   getAllPokemon(1)
   //     .then((pokes) => {
@@ -103,13 +103,15 @@ function App() {
 
     const output = mock.slice(0, length);
 
-    console.log(output);
     return output;
   }
 
   // game driver functionality
 
   function handleStartClick() {
+    if (level > highestLevel) {
+      return null;
+    }
     setIsActive((prevIsActive) => {
       if (!prevIsActive) {
         const newPokes = _mockGetPokes(level + 1);
@@ -136,6 +138,12 @@ function App() {
     console.log("next level is called");
     setLevel(level + 1);
     setIsActive(false);
+
+    //ending the game:
+    if (level > highestLevel) {
+      const container = document.getElementById("container");
+      container.classList.add("blurred");
+    }
   }
 
   return (
@@ -151,6 +159,8 @@ function App() {
         handleWrongGuess={handleWrongGuess}
         isActive={isActive}
         handleNextLevel={handleNextLevel}
+        level={level}
+        highestLevel={highestLevel}
       />
     </>
   );
