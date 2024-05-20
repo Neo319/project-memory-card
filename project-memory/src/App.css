@@ -20,6 +20,30 @@
   }
 }
 
+@keyframes messageSlide {
+  from {
+    top: 120%;
+  }
+  40% {
+    top: 50%;
+  }
+  70% {
+    top: 50%;
+  }
+  to {
+    top: -20%;
+  }
+}
+
+@keyframes blurFade {
+  from {
+    filter: blur(0%);
+  }
+  to {
+    filter: blur(100%);
+  }
+}
+
 .title {
   width: 100vw;
   text-align: center;
@@ -35,8 +59,6 @@
   display: grid;
   grid-template-columns: 20em 20em 20em;
   justify-content: space-around;
-
-  border: 1px solid red;
 }
 
 /* styles for displaying messages */
@@ -44,6 +66,25 @@
   filter: blur(10px);
   pointer-events: none;
   overflow: none;
+}
+#messageContainer {
+  position: relative;
+}
+.message {
+  opacity: 50%;
+  position: absolute;
+
+  top: 120%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+
+  font-size: 2em;
+  font-weight: 700;
+}
+.show {
+  opacity: 100%;
+  animation: ease 1.5s messageSlide;
+  z-index: 2;
 }
 
 .card {

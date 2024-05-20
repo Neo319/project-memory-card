@@ -12,7 +12,7 @@ export default function GameContainer({
 }) {
   const [currentOrder, setCurrentOrder] = useState([0, 1]);
   const [guesses, setGuesses] = useState([]);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("here!");
 
   useEffect(() => {
     console.log("pokes was changed -- setting current order");
@@ -81,36 +81,41 @@ export default function GameContainer({
   function showMessage() {
     console.log("message called");
     const container = document.getElementById("container");
-    const messageContainer = document.getElementById("messageContainer");
+    const message = document.getElementById("message");
     container.classList.add("blurred");
 
-    messageContainer.classList.add("show");
+    message.classList.add("show");
     setTimeout(() => {
-      messageContainer.classList.remove("show");
+      message.classList.remove("show");
       container.classList.remove("blurred");
-      setMessage("");
-    }, 3000);
+      setMessage("here!");
+    }, 1700);
   }
 
   //loops over length of pokes array, making cards in currentOrder
   return (
     <>
       <button onClick={handleShuffleClick}>Shuffle!</button>
-      <div className="container" id="container">
-        {pokes.map((poke, index) => {
-          if (index >= currentOrder.length) return null;
-          let orderedPoke = pokes[currentOrder[index]];
-          return (
-            <Card
-              key={orderedPoke.name + "_" + index}
-              poke={orderedPoke}
-              onClick={() => handleCardClick(orderedPoke)}
-              disabled={!isActive}
-            />
-          );
-        })}
+      <div id="messageContainer">
+        <div className="message" id="message">
+          {message}
+        </div>
+
+        <div className="container" id="container">
+          {pokes.map((poke, index) => {
+            if (index >= currentOrder.length) return null;
+            let orderedPoke = pokes[currentOrder[index]];
+            return (
+              <Card
+                key={orderedPoke.name + "_" + index}
+                poke={orderedPoke}
+                onClick={() => handleCardClick(orderedPoke)}
+                disabled={!isActive}
+              />
+            );
+          })}
+        </div>
       </div>
-      <div id="messageContainer">{message ? <div>{message}</div> : <></>}</div>
     </>
   );
 }
