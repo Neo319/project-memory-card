@@ -38,6 +38,7 @@ export default function GameContainer({
       message.classList.remove("linger");
 
       setMessageLinger(false);
+      setMessage("");
     }
   });
 
@@ -89,6 +90,16 @@ export default function GameContainer({
 
         handleNextLevel();
         setGuesses([]);
+      } else {
+        //correct guess with >0 left
+        const remaining = pokes.length - 1 - guesses.length;
+        setMessage(
+          <>
+            <p>{poke.name}: correct!</p>
+            <p>{remaining} left</p>
+          </>
+        );
+        showMessage();
       }
     } else {
       setMessage("Sorry, wrong guess!");

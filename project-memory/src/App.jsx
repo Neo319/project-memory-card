@@ -77,16 +77,6 @@ function App() {
   //     });
   // }, []); // Empty dependency array ensures useEffect runs only once
 
-  function handleStartClick() {
-    console.log(isActive);
-    if (!isActive) {
-      const newPokes = _mockGetPokes(level + 1);
-      setPokes(newPokes);
-      setScore(0);
-      setIsActive(true);
-    }
-  }
-
   function _mockGetPokes(length) {
     const mock = [
       {
@@ -119,6 +109,18 @@ function App() {
 
   // game driver functionality
 
+  function handleStartClick() {
+    setIsActive((prevIsActive) => {
+      if (!prevIsActive) {
+        const newPokes = _mockGetPokes(level + 1);
+        setPokes(newPokes);
+        setScore(0);
+        return true;
+      }
+      return prevIsActive;
+    });
+  }
+
   function handleScoreIncrease() {
     setScore(score + 1);
   }
@@ -127,7 +129,7 @@ function App() {
     setIsActive(false);
     setTimeout(() => {
       handleStartClick();
-    }, 2000);
+    }, 1500);
   }
 
   function handleNextLevel() {
